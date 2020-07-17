@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:RandomApp2.ViewModels"
+             mc:Ignorable="d"
+             x:Class="RandomApp2.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:NoteListViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                 HeightRequest="60" />
+
+        <Label Text="Notes" FontSize="25" TextColor="Black"
+               Margin="10,10,10,10"
+               VerticalTextAlignment="Center"/>
+
+        <Image Source="add"
+               Grid.Row="0" Grid.Column="2"
+               WidthRequest="30" HeightRequest="30"
+               Margin="10,10,5,10">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="AddNote" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Image Source="message"
+               Grid.Row="0" Grid.Column="3"
+               WidthRequest="30" HeightRequest="30"
+               Margin="10,10,5,10">
+            <Image.GestureRecognizers>
+
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Image Source="user"
+               Grid.Row="0" Grid.Column="4"
+               WidthRequest="40" HeightRequest="40"
+               Margin="5,10,10,10">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="DeleteAll" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
+                  ItemsSource="{Binding NoteList}"
+                  Margin="20,10" RowHeight="60">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Tapped="OpenNote">
+                        <StackLayout BackgroundColor="{Binding RGBColor}" 
+                                     Orientation="Horizontal">
+                            <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold" TextColor="{Binding RGBText}"
+                                   VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"
+                                   Margin="15,0,0,0"/>
+                            <Image Source="paint" WidthRequest="30"
+                                   ClassId="{Binding Id}"
+                                   VerticalOptions="CenterAndExpand" HorizontalOptions="End"
+                                   Margin="15,0,15,0">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="EditColor" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="5"
+                 VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                 BackgroundColor="Black" Opacity="0.13"
+                 IsVisible="{Binding ShowModal}">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="CloseModal" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <ContentView Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="5"
+                     VerticalOptions="Center" HorizontalOptions="Center"
+                     Margin="25,0,25,0"
+                     BackgroundColor="Transparent"
+                     IsVisible="{Binding ShowModal}">
+            <StackLayout BackgroundColor="Transparent"
+                         VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="Select a color.." FontSize="20" TextColor="Black"
+                      Padding="15,2,15,2"
+                       BackgroundColor="White"/>
+                <FlexLayout x:Name="flex_container"
+                            HorizontalOptions="FillAndExpand"
+                            Padding="10,10,10,10"
+                            BackgroundColor="White">
+                    
+                </FlexLayout>
+            </StackLayout>
+        </ContentView>
+    </Grid>
+
+</ContentPage>

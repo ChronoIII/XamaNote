@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:custom="clr-namespace:RandomApp2.CustomRenderers"
+             mc:Ignorable="d"
+             x:Class="RandomApp2.NoteEditorPage">
+    <Grid RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                 HeightRequest="60"/>
+
+        <Image Source="back"
+               Grid.Row="0" Grid.Column="0"
+               WidthRequest="40" HeightRequest="30"
+               Margin="12,10,5,10">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="GoBackToMain" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <custom:CustomEntry x:Name="entry_title"
+                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                             HorizontalOptions="FillAndExpand"
+                             Placeholder="Note Title"
+                             Margin="10,10,10,0"
+                            FontSize="25"/>
+
+        <custom:CustomEditor x:Name="editor_content"
+                             Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+                             VerticalOptions="FillAndExpand"
+                             Placeholder="Type a note..."
+                             Margin="10,10,10,0"
+                             FontSize="Medium">
+            
+        </custom:CustomEditor>
+
+        <Button x:Name="button_submit"
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
+                HorizontalOptions="FillAndExpand" VerticalOptions="End"
+                Margin="10,5,10,5"
+                Clicked="SubmitNote"/>
+    </Grid>
+</ContentPage>
